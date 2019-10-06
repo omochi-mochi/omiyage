@@ -8,7 +8,6 @@
             <div class="col-md-8 mx-auto">
                 <div class="section-header text-center">
                 <h2>新規投稿</h2>
-                <p>{{Config::get('prefecture.40')}}</p>
                 </div>
                 
                 <form action="{{ action('Admin\PageController@create') }}" method="post" enctype="multipart/form-data">

@@ -29,7 +29,9 @@
                             <label for="prefecture">購入場所</label><span>※必須</span>
                             <select class="form-control" name="prefecture_id">
                                 <option value="">都道府県名を選択してください</option>
-                                <option value="1"></option>
+                                @foreach(config('prefecture') as $prefecture_id => $name)
+                                    <option value="{{ $prefecture_id }}" @if(old('prefecture_id', $page->prefecture_id) == $prefecture_id) selected @endif>{{ $name }}</option>
+                                @endforeach
                             </select>
                         </div>
                         <div class="form-group col-md-6">
