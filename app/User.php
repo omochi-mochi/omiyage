@@ -36,4 +36,14 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+    
+    public function souvenir()
+    {
+        return $this->hasOne('App\Models\Souvenir');
+    }
+    
+    public function favorites() 
+    {
+        return $this->belongsToMany('App\Models\Favorite');
+    }
 }

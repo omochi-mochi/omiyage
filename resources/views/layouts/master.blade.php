@@ -12,6 +12,7 @@
         
         <!-- Scripts -->
         <script src="{{ secure_asset('js/app.js') }}" defer></script>
+        <script src="{{ secure_asset('js/master.js') }}" defer></script>
         
         <!-- Fonts -->
         <link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -20,7 +21,7 @@
         <!-- Styles -->
         <link href="{{ secure_asset('css/app.css') }}" rel="stylesheet">
         <link href="{{ secure_asset('css/master.css') }}" rel="stylesheet">
-        <script src="{{ secure_asset('js/master.js') }}" defer></script>
+        
     </head>
     <body>
         <header class="header">
@@ -29,9 +30,9 @@
             </a>
                 <nav class="global-nav">
                 <ul class="global-nav__list">
-                   <li class="global-nav__item"><a href="">マイページ</a></li>
-                   <li class="global-nav__item"><a href="">新規記事作成</a></li>
-                   <li class="global-nav__item">
+                    <li class="global-nav__item"><a href="{{ url('/') }}">マイページ</a></li>
+                    <li class="global-nav__item"><a href="{{ url('/') }}">新規記事作成</a></li>
+                    <li class="global-nav__item">
                         @guest
                             <a href="{{ route('login') }}">ログイン</a>
                         @else
@@ -43,8 +44,9 @@
                                 @csrf
                             </form>
                         @endguest
+                    
                 </ul>
-            </nav>
+                </nav>
             <div class="hamburger" id="js-hamburger">
                 <span class="hamburger__line hamburger__line--1"></span>
                 <span class="hamburger__line hamburger__line--2"></span>
