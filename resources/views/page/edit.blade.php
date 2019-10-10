@@ -20,7 +20,7 @@
                     @endif
                     
                     <div class="form-group">
-                        <lavel for="name">商品名</lavel><span>※必須</span>
+                        <label for="name">商品名</label><span>※必須</span>
                         <input type="text" class="form-control" name="name" value="{{ old('name', $page->name }}" placeholder="商品名を入力してください">
                     </div>
                     
@@ -44,17 +44,17 @@
                     </div>
                     
                     <div class="form-group">
-                        <lavel for="contents">おみやげ詳細</lavel><span>※必須</span>
+                        <label for="contents">おみやげ詳細</label><span>※必須</span>
                         <textarea class="form-control" name="contents" rows="8">{{ old('contents', $page->coments) }}</textarea>
                     </div>
                     
                     <div class="form-row">
                         <div class="form-group col-md-6">
-                            <lavel for="quantity">数量</lavel>
+                            <label for="quantity">数量</label>
                             <textarea class="form-control" name="quantity" rows="1">{{ old('quantity', $page->quantity) }}</textarea>
                         </div>
                         <div class="form-group col-md-6">
-                            <lavel for="price">価格</lavel>
+                            <label for="price">価格</label>
                             <textarea class="form-control" name="qprice" rows="1">{{ old('price', $page->price) }}</textarea>
                         </div>
                     </div>
@@ -81,7 +81,7 @@
                             </div>
                     </div>
                     
-                    <div classs="form-group">
+                    <div class="form-group">
                         <label for="tag">タグ</label>
                         
                     </div>

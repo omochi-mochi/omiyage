@@ -9,14 +9,11 @@ class Souvenir extends Model
     //
     protected $guarded = array('id');
     
-    //public static $rules = array(
-       // 'name' => 'required',
-        //'contents' => 'required',
-    //);
+    
     
     public function categories()
     {
-         return $this->belongsToMany('App\Models\Categoriy');
+         return $this->belongsToMany('App\Models\Category');
     }
     
     public function images()

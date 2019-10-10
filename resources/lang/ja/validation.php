@@ -149,7 +149,7 @@ return [
         'name' => 'おみやげ名',
         'contents' => 'おみやげ詳細',
         'prefecture_id' => '購入地',
-        'categories_id' => 'カテゴリー',
+        'category_id' => 'カテゴリー',
         'path' => '画像',
     ],
 
