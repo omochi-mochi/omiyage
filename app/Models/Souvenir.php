@@ -9,6 +9,10 @@ class Souvenir extends Model
     //
     protected $guarded = array('id');
     
+    protected $fillable = [
+        'user_id', 'prefecture_id', 'name', 'contents', 'wrapping', 'quantity', 'price'
+    ];
+    
     
     
     public function categories()

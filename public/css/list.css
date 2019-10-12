@@ -1,0 +1,16 @@
+.page-tb {
+    counter-reset: number;
+    margin-left: 20px;
+}
+.page-tb tbody th:before {
+    counter-increment: number;
+    content: counter(number);
+}
+
+.page-tb tbody tr:nth-child(odd) {
+    background: #eee;
+}
+
+.page-tb tbody tr:hover {
+    background: #D3D3D3;
+}

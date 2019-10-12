@@ -24,4 +24,13 @@ Route::group(['prefix' => 'page', 'middleware' => 'auth'], function() {
     Route::post('/create', 'Admin\PageController@create');
     Route::get('/edit', 'Admin\PageController@edit');
     Route::post('/edit', 'Admin\PageController@update');
+    Route::get('/delete', 'Admin\PageController@delete');
+});
+
+Route::group(['prefix' => 'userpage', 'middleware' => 'auth'], function() {
+    Route::get('/mypage', 'Mypage\MypageController@index');
+    Route::get('/profile/edit', 'Mypage\MypageController@profileEdit');
+    Route::post('/profile/edit', 'Mypage\MypageController@profileUpdate');
+    Route::get('/pages', 'Mypage\MypageController@pagelist');
+    
 });

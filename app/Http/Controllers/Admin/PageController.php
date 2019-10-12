@@ -10,6 +10,7 @@ use App\Models\Category;
 use App\Models\Souvenir;
 use App\Models\Image;
 use App\Models\Tag;
+use Storage;
 use Carbon\Carbon;
 
 
@@ -36,59 +37,46 @@ class PageController extends Controller
                 'contents' => 'required',
             ]);
 
+        $form = $request->all();
         
         $page = new Souvenir();
-        $page->save();
-        $souvenir_id = Souvenir::latest('id')->first();
+        $page->fill($form)->save();
         
         $tag_ids = $request->get('tag_id');
         $category_id = $request->get('category_id');
-        $form = $request->all();
         
-        $souvenir_id->tags()->sync($tag_ids);
-        $souvenir_id->categories()->sync($category_id);
+        $page->tags()->sync($tag_ids);
+        $page->categories()->sync($category_id);
         
-        
-        
-        
-        
-        
-            $images = $request->get('image_path[]');
-            
-            $image_ids = [];
-            foreach ($images as $file) {
-                $image = new Image();
-                $path = Storage::disk('s3')->putFile('/',$file,'public');
-                $image->path = Storage::disk('s3')->url($path);
-                $image->save();
-                $image_ids[] = $image->id;
-            }
-            $souvenir_id->images()->sync($image_ids);
-        
-        unset($form['_token']);
-        unset($form['image_path1'], $form['image_path2'], $form['image_path3'], $form['image_path4'], $form['image_path5']);
-        unset($form['category_id']);
-        unset($form['tag_id']);
-        
-        $souvenir_id->fill($form)->save();
-        
-        
+        $images = $request->file('image_path');
+        $image_ids = [];
+        foreach ($images as $file) {
+            $image = new Image();
+            $path = Storage::disk('s3')->putFile('/',$file,'public');
+            $image->path = Storage::disk('s3')->url($path);
+            $image->save();
+            $image_ids[] = $image->id;
+        }
+        $page->images()->sync($image_ids);
         
         return redirect('/home');
     }
     
     public function edit(Request $request)
     {
+        $user_id = Auth::id();
+        $categories = Category::all();
+        $tags = Tag::all();
         $page = Souvenir::with('categories','images','tags')->find($request->id);
         
         if(empty($page)) {
             abort(404);
         }
         
-        return view('page.edit', ['page' => $page]);
+        return view('page.edit', ['user_id' => $user_id,'categories' => $categories, 'tags' => $tags, 'page' => $page]);
     }
     
-    public function update()
+    public function update(Request $request)
     {
         $this->validate($request, [
                 'name' => 'required',
@@ -114,5 +102,14 @@ class PageController extends Controller
         $news->fill($page)->save();
 
         return redirect('/home');
+    }
+    
+    public function delete(Request $request)
+    {
+        $page = Souvenir::with('categories','images','tags')->find($request->id);
+        
+        $page->delete();
+        
+        return redirect('userpage/pages/');
     }
 }

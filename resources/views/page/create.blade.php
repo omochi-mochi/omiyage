@@ -37,7 +37,6 @@
                         </div>
                         <div class="form-group col-md-6">
                             <label for="categories">カテゴリー</label><span>※必須</span>
-                            
                             <select class="form-control" name="category_id">
                                 <option value="">選択してください</option>
                                 @foreach($categories as $category)
@@ -74,15 +73,15 @@
                     
                     <div class="form-group">
                         <label for="image">画像</label>
-                        <input type="file" class="form-control-file" name="image_path1" onchange="imgPreView(event, 'file-preview1')">
+                        <input type="file" class="form-control-file" name="image_path[]" onchange="imgPreView(event, 'file-preview1')">
                         <div id="file-preview1"></div>
-                        <input type="file" class="form-control-file" name="image_path2" onchange="imgPreView(event, 'file-preview2')">
+                        <input type="file" class="form-control-file" name="image_path[]" onchange="imgPreView(event, 'file-preview2')">
                         <div id="file-preview2"></div>
-                        <input type="file" class="form-control-file" name="image_path3" onchange="imgPreView(event, 'file-preview3')">
+                        <input type="file" class="form-control-file" name="image_path[]" onchange="imgPreView(event, 'file-preview3')">
                         <div id="file-preview3"></div>
-                        <input type="file" class="form-control-file" name="image_path4" onchange="imgPreView(event, 'file-preview4')">
+                        <input type="file" class="form-control-file" name="image_path[]" onchange="imgPreView(event, 'file-preview4')">
                         <div id="file-preview4"></div>
-                        <input type="file" class="form-control-file" name="image_path5" onchange="imgPreView(event, 'file-preview5')">
+                        <input type="file" class="form-control-file" name="image_path[]" onchange="imgPreView(event, 'file-preview5')">
                         <div id="file-preview5"></div>
                     </div>
                     
@@ -90,7 +89,7 @@
                         <p class="control-label">タグ</p>
                         <div class="form-check form-check-inline">
                             @foreach($tags as $tag)
-                                <input type="checkbox" class="form-check-input" name="tag_id[]" value="{{ $tag->id }}" @if(old('tag_id[]') == $tag->id) checked @endif>
+                                <input type="checkbox" class="form-check-input" name="tag_id[]" value="{{ $tag->id }}" @if(!empty(old('tag_id')) && in_array($tag->id, old('tag_id'))) checked @endif>
                                 <label for="tagname" class="form-check-label">{{ $tag->name }}</label>
                             @endforeach
                         </div>

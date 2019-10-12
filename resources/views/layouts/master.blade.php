@@ -13,6 +13,7 @@
         <!-- Scripts -->
         <script src="{{ secure_asset('js/app.js') }}" defer></script>
         <script src="{{ secure_asset('js/master.js') }}" defer></script>
+        @stack('scripts')
         
         <!-- Fonts -->
         <link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -21,6 +22,7 @@
         <!-- Styles -->
         <link href="{{ secure_asset('css/app.css') }}" rel="stylesheet">
         <link href="{{ secure_asset('css/master.css') }}" rel="stylesheet">
+        @stack('css')
         
     </head>
     <body>
@@ -30,8 +32,8 @@
             </a>
                 <nav class="global-nav">
                 <ul class="global-nav__list">
-                    <li class="global-nav__item"><a href="{{ url('/') }}">マイページ</a></li>
-                    <li class="global-nav__item"><a href="{{ url('/') }}">新規記事作成</a></li>
+                    <li class="global-nav__item"><a href="{{ url('userpages/mypage') }}">マイページ</a></li>
+                    <li class="global-nav__item"><a href="{{ url('page/create') }}">新規記事作成</a></li>
                     <li class="global-nav__item">
                         @guest
                             <a href="{{ route('login') }}">ログイン</a>
