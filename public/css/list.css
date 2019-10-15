@@ -1,6 +1,7 @@
 .page-tb {
     counter-reset: number;
-    margin-left: 20px;
+    width: 80%;
+    margin: 0 auto;
 }
 .page-tb tbody th:before {
     counter-increment: number;
@@ -13,4 +14,26 @@
 
 .page-tb tbody tr:hover {
     background: #D3D3D3;
+}
+
+.pages {
+    position: relative;
+    margin-bottom: 50px;
+}
+
+.image {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin: 0 auto;
+    
+}
+
+.name {
+    position: absolute;
+    width: 100%;
+    bottom: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.6);
+    color: rgba(255, 255, 255, 0.6);
 }

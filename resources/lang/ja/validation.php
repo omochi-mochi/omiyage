@@ -96,7 +96,7 @@ return [
     'present' => 'The :attribute field must be present.',
     'regex' => 'The :attribute format is invalid.',
     'required' => ':attribute の入力が必要です。',
-    'required_if' => 'The :attribute field is required when :other is :value.',
+    'required_if' => ':other を選択しない場合、:attribute から条件を選択してください',
     'required_unless' => 'The :attribute field is required unless :other is in :values.',
     'required_with' => 'The :attribute field is required when :values is present.',
     'required_with_all' => 'The :attribute field is required when :values are present.',
@@ -151,6 +151,7 @@ return [
         'prefecture_id' => '購入地',
         'category_id' => 'カテゴリー',
         'path' => '画像',
+        'tag_id' => '特徴',
     ],
 
 ];

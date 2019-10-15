@@ -32,7 +32,7 @@
             </a>
                 <nav class="global-nav">
                 <ul class="global-nav__list">
-                    <li class="global-nav__item"><a href="{{ url('userpages/mypage') }}">マイページ</a></li>
+                    <li class="global-nav__item"><a href="{{ url('userpage/mypage') }}">マイページ</a></li>
                     <li class="global-nav__item"><a href="{{ url('page/create') }}">新規記事作成</a></li>
                     <li class="global-nav__item">
                         @guest

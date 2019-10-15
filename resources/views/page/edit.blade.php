@@ -34,15 +34,14 @@
                                 @endforeach
                             </select>
                         </div>
+                        
                         <div class="form-group col-md-6">
                             <label for="categories">カテゴリー</label><span>※必須</span>
                             <select class="form-control" name="category_id">
                                 <option value="">選択してください</option>
                                 @foreach($categories as $category)
                                     <option value="{{ $category->id }}"
-                                    @foreach($page->categories as $category_id)
-                                        @if(old('category_id', $category_id->id) == $category->id) selected @endif>{{ $category->name }}</option>
-                                    @endforeach
+                                        @if(old('category_id', $page->categories[0]->id ) == $category->id) selected @endif>{{ $category->name }}</option>
                                 @endforeach
                             </select>
                         </div>
@@ -76,15 +75,40 @@
                     <div class="form-group">
                         <label for="image">画像</label>
                         <input type="file" class="form-control-file" name="image_path[]" onchange="imgPreView(event, 'file-preview1')">
-                        <div id="file-preview1"></div>
+                        <div id="file-preview1">
+                        @if (!empty($page->images[0]))
+                            <img id="previewImage-file-preview1" src="{{ $page->images[0]->path }}"/>
+                            <input type="checkbox" name="delete_image_ids[]" value="{{ $page->images[0]->id }}">削除する
+                            @endif
+                        </div>
                         <input type="file" class="form-control-file" name="image_path[]" onchange="imgPreView(event, 'file-preview2')">
-                        <div id="file-preview2"></div>
+                        <div id="file-preview2">
+                        @if (!empty($page->images[1]))
+                            <img id="previewImage-file-preview2" src="{{ $page->images[1]->path }}"/>
+                            <input type="checkbox" name="delete_image_ids[]" value="{{ $page->images[1]->id }}">削除する
+                            @endif
+                        </div>
                         <input type="file" class="form-control-file" name="image_path[]" onchange="imgPreView(event, 'file-preview3')">
-                        <div id="file-preview3"></div>
+                        <div id="file-preview3">
+                        @if (!empty($page->images[2]))
+                            <img id="previewImage-file-preview3" src="{{ $page->images[2]->path }}"/>
+                            <input type="checkbox" name="delete_image_ids[]" value="{{ $page->images[2]->id }}">削除する
+                            @endif
+                        </div>
                         <input type="file" class="form-control-file" name="image_path[]" onchange="imgPreView(event, 'file-preview4')">
-                        <div id="file-preview4"></div>
+                        <div id="file-preview4">
+                        @if (!empty($page->images[3]))
+                            <img id="previewImage-file-preview4" src="{{ $page->images[3]->path }}"/>
+                            <input type="checkbox" name="delete_image_ids[]" value="{{ $page->images[3]->id }}">削除する
+                            @endif
+                        </div>
                         <input type="file" class="form-control-file" name="image_path[]" onchange="imgPreView(event, 'file-preview5')">
-                        <div id="file-preview5"></div>
+                        <div id="file-preview5">
+                        @if (!empty($page->images[4]))
+                            <img id="previewImage-file-preview5" src="{{ $page->images[4]->path }}"/>
+                            <input type="checkbox" name="delete_image_ids[]" value="{{ $page->images[4]->id }}">削除する
+                            @endif
+                        </div>
                         
                     </div>
                     
@@ -93,9 +117,16 @@
                         <div class="form-check form-check-inline">
                             @foreach($tags as $tag)
                                 <input type="checkbox" class="form-check-input" name="tag_id[]" value="{{ $tag->id }}" 
-                                @foreach($page->tags as $tag_id)
-                                    @if(!empty(old('tag_id')) && in_array($tag->id, old('tag_id', $tag_id->id))) checked @endif
-                                @endforeach>
+                                @if (!empty(old('tag_id')) && in_array($tag->id, old('tag_id')))
+                                    checked
+                                @else
+                                    @foreach($page->tags as $already_tag)
+                                        @if ($tag->id == $already_tag->id)
+                                            checked
+                                        @endif
+                                    @endforeach
+                                @endif
+                                >
                                 <label for="tagname" class="form-check-label">{{ $tag->name }}</label>
                             @endforeach
                         </div>
@@ -103,6 +134,7 @@
                     </div>
                     
                     <input type="hidden" name="user_id" value="{{ $user_id }}">
+                    <input type="hidden" name="id" value="{{ $page->id }}">
                     
                     {{ csrf_field() }}
                     <input type="submit" class="btn btn-primary" value="更新する">

@@ -11,13 +11,13 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', 'PageController@index');
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/home', 'HomeController@index')->name('home')->middleware('auth');
+Route::get('/pages', 'PageController@list');
+Route::get('/pages/detail', 'PageController@detail');
 
 Route::group(['prefix' => 'page', 'middleware' => 'auth'], function() {
     Route::get('/create', 'Admin\PageController@add');
