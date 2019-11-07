@@ -8,10 +8,11 @@ class Favorite extends Model
 {
     //
     protected $guarded = array('id');
-    
+    //タイムスタンプ不要
+    public $timestamps = false;
     
     public function souvenirs() 
     {
-        return $this->belongsToMany('App\Models\Souvenir');
+        return $this->belongsTo('App\Models\Souvenir');
     }
 }

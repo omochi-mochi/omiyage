@@ -18,6 +18,8 @@
         <!-- Fonts -->
         <link rel="dns-prefetch" href="//fonts.gstatic.com">
         <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
+        <!-- ロゴ用Fonts -->
+        <link href="https://fonts.googleapis.com/css?family=Corben:700" rel="stylesheet">
         
         <!-- Styles -->
         <link href="{{ secure_asset('css/app.css') }}" rel="stylesheet">
@@ -27,9 +29,11 @@
     </head>
     <body>
         <header class="header">
+            {{-- ロゴ --}}
             <a class="omiyage_logo" href="{{ url('/') }}">
-                <img src="" alt="omiyage" width="60" height="20">
+                <span class="logo_font">omiyage</span>
             </a>
+                {{-- ハンバーガーメニュー：メニュー内容 --}}
                 <nav class="global-nav">
                 <ul class="global-nav__list">
                     <li class="global-nav__item"><a href="{{ url('userpage/mypage') }}">マイページ</a></li>
@@ -49,6 +53,7 @@
                     
                 </ul>
                 </nav>
+            {{-- ハンバーガーメニュー：マーク --}}
             <div class="hamburger" id="js-hamburger">
                 <span class="hamburger__line hamburger__line--1"></span>
                 <span class="hamburger__line hamburger__line--2"></span>
@@ -66,6 +71,4 @@
         
     </footer>
     </body>
-    
-    
 </html>

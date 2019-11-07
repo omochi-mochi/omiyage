@@ -16,9 +16,9 @@
             
             <div class="section-contents1">
                 <div class="section-header">
-                    <h3>登録情報の変更</h3>
+                    <h3>パスワードの変更</h3>
                 </div>
-                <button type="button" onclick="location.href='{{ url('userpage/profile/edit') }}'">登録情報を変更する</button>
+                <button type="button" onclick="location.href='{{ url('userpage/profile/edit') }}'">パスワードを変更する</button>
             </div>
             
             <div class="section-contentslist .row">
@@ -32,8 +32,7 @@
                 <div class="section-header">
                     <h3>お気に入り記事編集</h3>
                 </div>
-                {{-- favorite 追加する
-                <button type="button" onclick="location.href='{{ url('userpage/pages') }}'">お気に入り記事一覧へ</button> --}}
+                <button type="button" onclick="location.href='{{ url('favorite/list') }}'">お気に入り記事一覧へ</button>
             </div>
             
         </div>

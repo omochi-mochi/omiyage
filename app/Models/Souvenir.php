@@ -30,6 +30,11 @@ class Souvenir extends Model
         return $this->belongsToMany('App\Models\Tag');
     }
     
+    public function favorites()
+    {
+        return $this->hasMany('App\Models\Favorite');
+    }
+    
     public function getPrefectureNameAttribute() {
         return config('prefecture.'.$this->prefecture_id);
     }

@@ -14,6 +14,7 @@
         </div>
         <form action="{{ action('PageController@list') }}" method="get">
             <div class="form-group col-md-4 mx-auto">
+                {{-- バリデーションエラー文の表示 --}}
                 @if(count($errors) > 0)
                  <ul>
                     @foreach($errors->all() as $e)
@@ -22,6 +23,7 @@
                 </ul>
                 @endif
                 
+                {{-- configから都道府県一覧を取得、検索時選択された値の保持 --}}
                 <select class="form-control" name="prefecture_id">
                     <option value="">都道府県名を選択してください</option>
                     @foreach(config('prefecture') as $prefecture_id => $name)
@@ -30,11 +32,11 @@
                 </select>
             </div>
         
-        
-            <div class="form-group col-md-7 mx-auto">
+        　　{{-- DBからタグを取得、検索時選択された値の保持 --}}
+            <div id="tag" class="form-group col-md-8 mx-auto">
                 <p>特徴で絞り込み</p>
                 <div class="box-line">
-                <div class="form-check form-check-inline">
+                <div class="form-check form-check-inline flex">
                      @foreach($tags as $tag)
                         <input type="checkbox" class="form-check-input" name="tag_id[]" value="{{ $tag->id }}" 
                         @if (!empty(old('tag_id')) && in_array($tag->id, old('tag_id')))
@@ -67,31 +69,57 @@
         <div class="section-header2 text-center">
             <h1>検索結果</h1>
         </div>
-        
+        {{-- foreachで検索結果の記事$pagesを取り出す --}}
         <div class="row">
-            <div class="pagelist mx-auto">
+            <div class="pagelist flex">
                 @foreach($pages as $page)
                     <div class="pages">
                         <div class="image">
+                            {{-- 画像が登録されていれば最初の1枚目をサムネイルとして表示 --}}
                             @if(!empty($page->images[0]))
-                                <a href="{{ action('PageController@detail', ['id' => $page->id]) }}"><img src="{{ $page->images[0]->path }}"  width="300" height="300"></img></a>
+                                <a href="{{ action('PageController@detail', ['id' => $page->id]) }}">
+                                    <img src="{{ $page->images[0]->path }}" width="300" height="300">
+                                    <div class="name p-2">
+                                        <p>{{ Str::limit($page->name, 50) }}</p>
+                                    </div>
+                                </a>
+                            {{-- 画像が登録されていなければNoImage画像ををサムネイルとして表示 --}}
                             @else
-                                <a href="{{ action('PageController@detail', ['id' => $page->id]) }}"><img src="{{ asset('public/noimage.jpg') }}"></a>
+                                <a href="{{ action('PageController@detail', ['id' => $page->id]) }}">
+                                    <img src="{{ asset('images/noimage.jpg') }}" width="300" height="300">
+                                    <div class="name p-2">
+                                        <p>{{ Str::limit($page->name, 50) }}</p>
+                                    </div>
+                                </a>
                             @endif
                         </div>
-                    
-                        <div class="name p-2">
-                            <p>{{ Str::limit($page->name, 50) }}</p>
+                        {{-- ログイン状態の場合お気に入りボタンを表示 --}}
+                        <div class="favorite">
+                            @if(\Illuminate\Support\Facades\Auth::check())
+                                {{-- お気に入りに登録していないときは登録ボタンを表示 --}}
+                                @if(empty(\App\Models\Favorite::where('user_id', \Illuminate\Support\Facades\Auth::user()->id)->where('souvenir_id', $page->id)->first()))
+                                    <form id="favorite-form" action="{{ action('Mypage\FavoriteController@store') }}" method="post" enctype="multipart/form-data">
+                                        @csrf
+                                        <input type="hidden" name="souvenir_id" value="{{ $page->id }}">
+                                        <input class="favorite-on" type="submit" value="お気に入り登録" />
+                                    </form>
+                                {{-- お気に入り登録済の場合は解除ボタンを表示 --}}
+                                @else
+                                    <form id="favorite-form" action="{{ action('Mypage\FavoriteController@destroy') }}" method="post" enctype="multipart/form-data">
+                                        @csrf
+                                        <input type="hidden" name="souvenir_id" value="{{ $page->id }}">
+                                        <input class="favorite-off" type="submit" value="お気に入り解除" />
+                                    </form>
+                                @endif
+                            @endif
                         </div>
                     </div>
                 @endforeach
-                
-                
             </div>
-            
+        </div>
+        {{-- ページネーション：検索条件の値を渡す --}}
+        <div class="pagination">
+                {{ $pages->appends(['prefecture_id' => $prefecture, 'tag_id' => $tag_ids])->links() }}
         </div>
     </div>
-    
-    
-
 @endsection

@@ -7,7 +7,7 @@
         <div class="row">
             <div class="col-md-8 mx-auto">
                 <div class="section-header text-center">
-                <h2>新規投稿</h2>
+                    <h2>新規投稿</h2>
                 </div>
                 
                 <form action="{{ action('Admin\PageController@create') }}" method="post" enctype="multipart/form-data">
@@ -87,7 +87,7 @@
                     
                     <div class="form-group">
                         <p class="control-label">タグ</p>
-                        <div class="form-check form-check-inline">
+                        <div id="tag" class="form-check form-check-inline">
                             @foreach($tags as $tag)
                                 <input type="checkbox" class="form-check-input" name="tag_id[]" value="{{ $tag->id }}" @if(!empty(old('tag_id')) && in_array($tag->id, old('tag_id'))) checked @endif>
                                 <label for="tagname" class="form-check-label">{{ $tag->name }}</label>

@@ -48,18 +48,20 @@ class PageController extends Controller
         $page->tags()->sync($tag_ids);
         $page->categories()->sync($category_id);
         
-        $images = $request->file('image_path');
-        $image_ids = [];
-        foreach ($images as $file) {
-            $image = new Image();
-            $path = Storage::disk('s3')->putFile('/',$file,'public');
-            $image->path = Storage::disk('s3')->url($path);
-            $image->save();
-            $image_ids[] = $image->id;
+        if(!empty($request->image_path)) {
+            $images = $request->file('image_path');
+            $image_ids = [];
+            foreach ($images as $file) {
+                $image = new Image();
+                $path = Storage::disk('s3')->putFile('/',$file,'public');
+                $image->path = Storage::disk('s3')->url($path);
+                $image->save();
+                $image_ids[] = $image->id;
+            }
+            $page->images()->sync($image_ids);
         }
-        $page->images()->sync($image_ids);
         
-        return redirect('/home');
+        return redirect('userpage/pages');
     }
     
     public function edit(Request $request)
